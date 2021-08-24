@@ -11,6 +11,7 @@ import "react-dropdown/style.css";
 
 import Switch from "react-switch";
 
+//provides functions and states down to components
 export const CanvasContext = createContext({
   turnOn: null,
   toggleMenu: null,
@@ -31,7 +32,6 @@ export const ContainerAed = () => {
 
   //List of Svgs displayed in canvas
   const [itemList, setItemList] = useState({
-    // 0: { title: "PressureBlower", state: false, selected: false, exists: true },
     0: {
       title: "RemoteControl",
       controllingKey: "None",
@@ -42,8 +42,7 @@ export const ContainerAed = () => {
 
   //coordinates of items in canvas
   const [items, setItems] = useState({
-    0: { top: 0, left: 90 },
-    //1: { top: 0, left: 90 },
+    0: { top: 180, left: 390 },
   });
 
   //Function that sets a target to a controller
@@ -76,7 +75,6 @@ export const ContainerAed = () => {
 
   //returns new id to add item to canvas
   const newEntry = (object) => {
-    let minKey;
     let minValue = Infinity;
 
     let maxKey;
@@ -84,7 +82,6 @@ export const ContainerAed = () => {
 
     for (const key in object) {
       if (key < minValue) {
-        minKey = key;
         minValue = key;
       }
 
@@ -93,9 +90,6 @@ export const ContainerAed = () => {
         maxValue = key;
       }
     }
-
-    //const minEntry = { [minKey]: object[minKey] };
-    //const maxEntry = { [maxKey]: object[maxKey] };
     if (maxKey) {
       return parseInt(maxKey) + 1;
     } else {
@@ -145,10 +139,11 @@ export const ContainerAed = () => {
     const _z = items;
     _z[_entry] = { top: top, left: left };
     setItems(_z);
-    var _newarr = optionsList;
-    _newarr.push(_entry.toString());
-    setOptionsList(_newarr);
-    console.log(optionsList);
+    if (icon === "PressureBlower") {
+      var _newarr = optionsList;
+      _newarr.push(_entry.toString());
+      setOptionsList(_newarr);
+    }
   };
 
   //Connects the dropdown item selector to the control-target function
@@ -179,10 +174,6 @@ export const ContainerAed = () => {
     }
   };
 
-  //constants for dropdown menu
-  //const optionItems = options()
-  const defaultOption = optionsList[0];
-
   return (
     //provides function to turn on items || currently PressureBlower
     <CanvasContext.Provider
@@ -194,10 +185,21 @@ export const ContainerAed = () => {
         </div>
         <div className="toolbar">
           <div>Tools</div>
+          {/* debugging buttons */}
           <button onClick={() => console.log(itemList)}></button>
           <button onClick={() => console.log(console.log())}></button>
           <button onClick={() => console.log("test")}></button>
-          <div style={{ marginLeft: 100 }}>
+
+          <div
+            style={{
+              marginLeft: 100,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            {/* Turns edit mode on/off */}
+            <div style={{ marginRight: "5px" }}>edit</div>
             <Switch
               uncheckedIcon={false}
               checkedIcon={false}
@@ -243,6 +245,9 @@ export const ContainerAed = () => {
                         <text style={{ marginTop: 20, fontWeight: "bold" }}>
                           {itemList[key].title}
                         </text>
+                        <text style={{ marginTop: 20, fontWeight: "bold" }}>
+                          {`id: ${key}`}
+                        </text>
                         {itemList[key].controllingKey ? (
                           <text
                             style={{ marginTop: "20px", marginBottom: "10px" }}
@@ -254,12 +259,14 @@ export const ContainerAed = () => {
                           <Dropdown
                             options={optionsList}
                             onChange={(e) => _onSelect(e.value)}
-                            value={defaultOption}
+                            value={itemList[key].controllingKey}
                             placeholder="Select an option"
                           />
                         ) : null}
                       </>
                     );
+                  } else {
+                    return null;
                   }
                 })
               )}

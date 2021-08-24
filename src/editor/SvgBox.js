@@ -25,7 +25,7 @@ export const SvgBox = ({
 
   const [itemMenu, setItemMenu] = useState(false);
 
-  const { turnOn, toggleMenu, deleteItem, editMode, itemList } =
+  const { turnOn, toggleMenu, deleteItem, editMode } =
     useContext(CanvasContext);
 
   const [{ isDragging }, drag] = useDrag(
@@ -50,7 +50,6 @@ export const SvgBox = ({
       onMouseOver={() => {
         setItemMenu(true);
       }}
-      role="Svgbox"
       onMouseLeave={() => {
         setItemMenu(false);
       }}
@@ -62,9 +61,9 @@ export const SvgBox = ({
         </div>
       ) : null}
 
-      {title == "PressureBlower" ? (
+      {title === "PressureBlower" ? (
         <PressureFunk height={100} width={100} onoff={state} />
-      ) : title == "RemoteControl" ? (
+      ) : title === "RemoteControl" ? (
         <RemoteControl
           height={100}
           width={100}

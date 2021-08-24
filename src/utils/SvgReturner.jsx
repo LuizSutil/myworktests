@@ -33,5 +33,7 @@ export const SvgReturner = (title) => {
       return <Saw width={80} height={80} />;
     case "Switch":
       return <Switch width={80} height={80} />;
+    default:
+      break;
   }
 };

@@ -4,7 +4,7 @@ import { SvgReturner } from "../utils/SvgReturner";
 
 export const SvgCatItem = ({ title }) => {
   //draggable component in canvas
-  const [{ opacity }, drag] = useDrag(() => ({
+  const [, drag] = useDrag(() => ({
     type: ItemTypes.SVG,
     item: { title },
     collect: (monitor) => ({
