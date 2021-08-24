@@ -1,7 +1,7 @@
 import './App.css';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ContainerAed } from './SvgBoxAddDrag/ContainerAeD';
+import { ContainerAed } from './editor/ContainerAeD';
 function App() {
   return (
     <div className="App">
