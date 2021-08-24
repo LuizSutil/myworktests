@@ -132,11 +132,11 @@ export const ContainerAed = () => {
   };
 
   //Adds a new item to the canvas
-  const addItem = (top, left) => {
+  const addItem = (top, left, icon) => {
     const _entry = newEntry(itemList);
     const _x = itemList;
     _x[_entry] = {
-      title: "PressureBlower",
+      title: icon,
       state: false,
       selected: false,
       exists: true,
@@ -224,7 +224,7 @@ export const ContainerAed = () => {
               <SvgCanvas
                 edit={editMode}
                 items={items}
-                addSgv={(top, left) => addItem(top, left)}
+                addSgv={(top, left, icon) => addItem(top, left, icon)}
                 setItemsFun={(id, left, top) => moveBox(id, left, top)}
                 itemList={itemList}
               />

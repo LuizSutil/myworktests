@@ -1,6 +1,5 @@
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../utils/ItemTypes";
-import update from "immutability-helper";
 import { SvgBox } from "./SvgBox";
 
 const styles = {
@@ -37,8 +36,10 @@ export const SvgCanvas = ({ items, setItemsFun, itemList, addSgv, edit }) => {
           //offset to match the canvas coordinates -> different from monitor coordinates
           const left = pos.x - 200;
           const top = pos.y - 150;
+          console.log(item.title);
+          const icon = item.title;
           //adds item to itemlist in main container itemlist state
-          addSgv(top, left);
+          addSgv(top, left, icon);
         } else {
           //this is for further implementation
           console.log("wtf you doin");

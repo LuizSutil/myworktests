@@ -5,6 +5,7 @@ import RemoteControl from "../svgs/RemoteControl";
 import { useContext, useState } from "react";
 import { CanvasContext } from "./ContainerAeD";
 import "./SvgBox.css";
+import { SvgReturner } from "../utils/SvgReturner";
 
 export const SvgBox = ({
   id,
@@ -63,7 +64,7 @@ export const SvgBox = ({
 
       {title == "PressureBlower" ? (
         <PressureFunk height={100} width={100} onoff={state} />
-      ) : (
+      ) : title == "RemoteControl" ? (
         <RemoteControl
           height={100}
           width={100}
@@ -71,6 +72,8 @@ export const SvgBox = ({
           faa={() => turnOn(true, controllingKey)}
           // turnOn(true, controllingKey)
         />
+      ) : (
+        SvgReturner(title)
       )}
       {itemMenu && edit ? (
         <div onClick={() => deleteItem(id)} className="icon">
