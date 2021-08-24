@@ -19,7 +19,6 @@
 .logo {
   width: 70px;
   height: 100%;
-  margin-left: 45px;
 }
 
 .catalogue {
@@ -36,7 +35,6 @@
 
 .topbar {
   height: 64px;
-  background-color: rgb(255, 255, 255);
   display: flex;
 }
 

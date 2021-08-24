@@ -81,6 +81,7 @@ export const SvgCanvas = ({ items, setItemsFun, itemList, addSgv, edit }) => {
             />
           );
         }
+        return undefined;
       })}
     </div>
   );

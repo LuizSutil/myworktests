@@ -18,27 +18,30 @@ export const SvgBox = ({
 }) => {
   const style = {
     position: "absolute",
-    cursor: "move",
+    cursor: edit ? "move" : "default",
     border: selected && edit ? "1px solid black" : null,
   };
 
   const [itemMenu, setItemMenu] = useState(false);
 
-  const { turnOn, toggleMenu, deleteItem } = useContext(CanvasContext);
+  const { turnOn, toggleMenu, deleteItem, editMode, itemList } =
+    useContext(CanvasContext);
 
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: ItemTypes.SVGBOX,
+      canDrag: editMode ? true : false,
       item: { id, left, top },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [id, left, top]
+    [id, left, top, editMode]
   );
   if (isDragging) {
     return <div ref={drag} />;
   }
+
   return (
     <div
       ref={drag}
@@ -59,13 +62,14 @@ export const SvgBox = ({
       ) : null}
 
       {title == "PressureBlower" ? (
-        <PressureFunk height={100} width={100} OnOff={state} />
+        <PressureFunk height={100} width={100} onoff={state} />
       ) : (
         <RemoteControl
           height={100}
           width={100}
           fuu={() => turnOn(false, controllingKey)}
           faa={() => turnOn(true, controllingKey)}
+          // turnOn(true, controllingKey)
         />
       )}
       {itemMenu && edit ? (

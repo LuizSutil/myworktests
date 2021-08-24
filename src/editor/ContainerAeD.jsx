@@ -15,6 +15,8 @@ export const CanvasContext = createContext({
   turnOn: null,
   toggleMenu: null,
   deleteItem: null,
+  editMode: null,
+  itemList: null,
 });
 
 export const ContainerAed = () => {
@@ -22,15 +24,15 @@ export const ContainerAed = () => {
   const [menuState, setMenuState] = useState(true);
 
   //controls right side menu drop down state
-  const [optionsList, setOptionsList] = useState(["None", "0"]);
+  const [optionsList, setOptionsList] = useState(["None"]);
 
   //set if edit mode is on
   const [editMode, setEditMode] = useState(false);
 
   //List of Svgs displayed in canvas
   const [itemList, setItemList] = useState({
-    0: { title: "PressureBlower", state: false, selected: false, exists: true },
-    1: {
+    // 0: { title: "PressureBlower", state: false, selected: false, exists: true },
+    0: {
       title: "RemoteControl",
       controllingKey: "None",
       selected: false,
@@ -40,8 +42,8 @@ export const ContainerAed = () => {
 
   //coordinates of items in canvas
   const [items, setItems] = useState({
-    0: { top: 30, left: 18 },
-    1: { top: 0, left: 90 },
+    0: { top: 0, left: 90 },
+    //1: { top: 0, left: 90 },
   });
 
   //Function that sets a target to a controller
@@ -56,17 +58,19 @@ export const ContainerAed = () => {
 
   //Function that runs on the controller to change target state
   const turnOn = (state, id) => {
-    console.log("test");
-    if (id === "None") {
-      alert("Nenhum Alvo Selecionado");
+    if (!editMode) {
+      if (id === "None") {
+        alert("Nenhum Alvo Selecionado");
+      } else {
+        var _x = update(itemList, {
+          [id]: {
+            $merge: { state },
+          },
+        });
+        setItemList(_x);
+      }
     } else {
-      var _x = update(itemList, {
-        [id]: {
-          $merge: { state },
-        },
-      });
-      setItemList(_x);
-      console.log(itemList);
+      return undefined;
     }
   };
 
@@ -92,8 +96,11 @@ export const ContainerAed = () => {
 
     //const minEntry = { [minKey]: object[minKey] };
     //const maxEntry = { [maxKey]: object[maxKey] };
-
-    return parseInt(maxKey) + 1;
+    if (maxKey) {
+      return parseInt(maxKey) + 1;
+    } else {
+      return 1;
+    }
   };
 
   //Deletes item from canvas
@@ -109,23 +116,9 @@ export const ContainerAed = () => {
     setItems(_y);
 
     var _currArr = optionsList;
-    var _newArr = _currArr.filter((item) => item != id.toString());
+    var _newArr = _currArr.filter((item) => item !== id.toString());
     setOptionsList(_newArr);
   };
-
-  // //DropDown Menu items || currently filtering for PressureBlower items only
-  // const options = () => {
-  //     const _arr =[],
-  //     r = _arr.push('None'),
-  //     x = Object.keys(itemList).map((key)=>{
-  //         if(itemList[key].title === 'PressureBlower'){
-  //             _arr.push(key)
-  //         }
-
-  //     })
-
-  //     return _arr
-  // }
 
   //Function to move box and update in the position state
   const moveBox = (id, left, top) => {
@@ -160,7 +153,7 @@ export const ContainerAed = () => {
 
   //Connects the dropdown item selector to the control-target function
   const _onSelect = (e) => {
-    changeControlTarget(1, e);
+    changeControlTarget(0, e);
   };
 
   //sets selected item with id as true or false
@@ -192,15 +185,17 @@ export const ContainerAed = () => {
 
   return (
     //provides function to turn on items || currently PressureBlower
-    <CanvasContext.Provider value={{ turnOn, toggleMenu, deleteItem }}>
+    <CanvasContext.Provider
+      value={{ turnOn, toggleMenu, deleteItem, editMode, itemList }}
+    >
       <div className="overlay">
         <div className="topbar">
-          <img src={WolferLogo} className="logo"></img>
+          <img src={WolferLogo} alt="logo" className="logo"></img>
         </div>
         <div className="toolbar">
-          <text>Tools</text>
-          <button onClick={() => {}}></button>
-          <button onClick={() => {}}></button>
+          <div>Tools</div>
+          <button onClick={() => console.log(itemList)}></button>
+          <button onClick={() => console.log(console.log())}></button>
           <button onClick={() => console.log("test")}></button>
           <div style={{ marginLeft: 100 }}>
             <Switch
@@ -238,7 +233,7 @@ export const ContainerAed = () => {
           {editMode ? (
             <div className="sidemenu">
               {menuState ? (
-                <img src={WolferLogo}></img>
+                <img src={WolferLogo} alt="logo"></img>
               ) : (
                 Object.keys(itemList).map((key) => {
                   if (itemList[key].selected) {
