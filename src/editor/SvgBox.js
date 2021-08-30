@@ -75,7 +75,21 @@ export const SvgBox = ({
       >
        <div className='modal'>
         <div className='modalMenu' onClick={()=>setPopup(false)}>
-           menu
+           <div className='menuItem'>
+             item
+            </div>
+           <div className='menuItem'>
+             item
+            </div  >
+           <div className='menuItem'>
+             item
+            </div>
+           <div className='menuItem'>
+             item
+            </div>
+           <div className='menuItem'>
+             item
+           </div>
          </div>
         <div className='svgRow'>
           <button className='modalSvg'>
