@@ -3,8 +3,8 @@ import { ItemTypes } from "../utils/ItemTypes";
 import { SvgBox } from "./SvgBox";
 
 const styles = {
-  width: "55.3rem",
-  height: "35rem",
+  width: "57.5vw",
+  height: "80vh",
   border: "2px solid teal",
   position: "relative",
   marginRight: "20px",
@@ -60,12 +60,12 @@ export const SvgCanvas = ({ items, setItemsFun, itemList, addSgv, edit }) => {
     //ref drop to turn into draggable component, main canvas div
     <div
       ref={drop}
-      style={{ ...styles, backgroundColor: isActive ? "grey" : "#D9DBDB" }}
+      style={{ ...styles, backgroundColor: isActive ? "rgb(40, 38, 49)" : "rgb(56, 55, 66)" }}
     >
       {/* maps items from  itemlist and returns items inside canvas*/}
       {Object.keys(items).map((key) => {
         const { left, top } = items[key];
-        const { title, state, controllingKey, selected, exists } =
+        const { title, state, controllingKey, selected, exists} =
           itemList[key];
         if (exists === true) {
           return (

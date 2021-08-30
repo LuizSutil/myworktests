@@ -3,6 +3,17 @@ import { ItemTypes } from "../utils/ItemTypes";
 import { SvgReturner } from "../utils/SvgReturner";
 
 export const SvgCatItem = ({ title }) => {
+
+  const styles = { 
+    display:'flex',
+    marginTop: "20px", 
+    backgroundColor: 'rgb(56, 55, 66)', 
+    borderRadius:'10px',
+    justifyContent:'center',
+    alignItems:'center',
+    width:110,
+    height:110, 
+  }
   //draggable component in canvas
   const [, drag] = useDrag(() => ({
     type: ItemTypes.SVG,
@@ -14,7 +25,7 @@ export const SvgCatItem = ({ title }) => {
   }));
   return (
     //returns the svg, drag ref to make it draggable component
-    <div ref={drag} style={{ marginTop: "20px" }}>
+    <div ref={drag} style={{...styles}}>
       {SvgReturner(title)}
     </div>
   );

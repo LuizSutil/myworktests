@@ -1,7 +1,6 @@
 import { useState, createContext } from "react";
 import update from "immutability-helper";
 import "./ContainerAeD.css";
-import WolferLogo from "../assets/wolferLogo.png";
 
 import { SvgCanvas } from "./SvgCanvas";
 import { SvgCatalogue } from "./SvgCatalogue";
@@ -10,6 +9,7 @@ import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 import Switch from "react-switch";
+
 
 //provides functions and states down to components
 export const CanvasContext = createContext({
@@ -33,8 +33,20 @@ export const ContainerAed = () => {
   //List of Svgs displayed in canvas
   const [itemList, setItemList] = useState({
     0: {
-      title: "RemoteControl",
+      title: "Fabric",
       controllingKey: "None",
+      selected: false,
+      exists: true,
+    },
+    1: {
+      title: "PressureBlower",
+      state: false,
+      selected: false,
+      exists: true,
+    },
+    2: {
+      title: "PressureBlower",
+      state: true,
       selected: false,
       exists: true,
     },
@@ -43,6 +55,9 @@ export const ContainerAed = () => {
   //coordinates of items in canvas
   const [items, setItems] = useState({
     0: { top: 180, left: 390 },
+    1: { top: 100, left: 300 },
+    2: { top: 280, left: 290 },
+
   });
 
   //Function that sets a target to a controller
@@ -56,7 +71,7 @@ export const ContainerAed = () => {
   };
 
   //Function that runs on the controller to change target state
-  const turnOn = (state, id) => {
+  const turnOn = (id, state) => {
     if (!editMode) {
       if (id === "None") {
         alert("Nenhum Alvo Selecionado");
@@ -178,18 +193,24 @@ export const ContainerAed = () => {
     //provides function to turn on items || currently PressureBlower
     <CanvasContext.Provider
       value={{ turnOn, toggleMenu, deleteItem, editMode, itemList }}
-    >
+    > 
       <div className="overlay">
+
         <div className="topbar">
-          <img src={WolferLogo} alt="logo" className="logo"></img>
+          {/* <img src={WolferLogo} alt="logo" className="logo"></img> */}
+          <div className='logoRadius'>
+          <text style={{fontSize:'35px', fontWeight:'bolder', color:'teal'}}>Wolfer</text>
+          </div>
         </div>
         <div className="toolbar">
           <div>Tools</div>
           {/* debugging buttons */}
-          <button onClick={() => console.log(itemList)}></button>
-          <button onClick={() => console.log(console.log())}></button>
-          <button onClick={() => console.log("test")}></button>
-
+          <button style={{width:'20px', height:'20px'}} onClick={() => turnOn(1,true)}></button>
+          <button style={{width:'20px', height:'20px'}} onClick={() => turnOn(1,false)}></button>
+          <button style={{width:'20px', height:'20px'}} onClick={() => turnOn(2,true)}></button>
+          <button style={{width:'20px', height:'20px'}} onClick={() => turnOn(2,false)}></button>
+          <button style={{width:'20px', height:'20px'}} onClick={() => console.log()}></button>
+          <button style={{width:'20px', height:'20px'}} onClick={() => console.log("test")}></button>
           <div
             style={{
               marginLeft: 100,
@@ -201,6 +222,7 @@ export const ContainerAed = () => {
             {/* Turns edit mode on/off */}
             <div style={{ marginRight: "5px" }}>edit</div>
             <Switch
+              onColor={'#008080'}
               uncheckedIcon={false}
               checkedIcon={false}
               checked={editMode}
@@ -209,39 +231,44 @@ export const ContainerAed = () => {
           </div>
         </div>
         <div className="row">
+
           {editMode ? (
             <div className="catalogue">
-              <text className="subhead">Catalogo</text>
+              <text style={{fontSize:'35px', fontWeight:'bolder', color:'teal'}}>Catalogo</text>
               {/* List of svgs available to put in canvas */}
               <SvgCatalogue></SvgCatalogue>
             </div>
           ) : null}
 
           <div className="canvasColumn">
-            <text style={{ fontSize: 23, marginBottom: 5 }}>
+            <text style={{color:'gainsboro' ,fontSize: 23, marginBottom: 5 }}>
               Factory Building Canvas {editMode === true ? "editor" : "viewer"}
             </text>
             <div>
               {/* Main Canvas */}
+
               <SvgCanvas
                 edit={editMode}
                 items={items}
                 addSgv={(top, left, icon) => addItem(top, left, icon)}
                 setItemsFun={(id, left, top) => moveBox(id, left, top)}
                 itemList={itemList}
-              />
+              />      
+
             </div>
           </div>
           {editMode ? (
             <div className="sidemenu">
               {menuState ? (
-                <img src={WolferLogo} alt="logo"></img>
+                // <img src={WolferLogo} alt="logo"></img>
+                <text style={{fontSize:'35px', fontWeight:'bolder', color:'teal'}}>Menu</text>
+
               ) : (
                 Object.keys(itemList).map((key) => {
                   if (itemList[key].selected) {
                     return (
                       <>
-                        <text className="subhead">menu</text>
+                        <text  style={{fontSize:'35px', fontWeight:'bold', color:'teal'}}>Menu</text>
                         <text style={{ marginTop: 20, fontWeight: "bold" }}>
                           {itemList[key].title}
                         </text>

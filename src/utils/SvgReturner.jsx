@@ -1,39 +1,20 @@
-import PressureFunk from "../editor/PressureFunk";
-import Assembly from "../svgs/AssemblyLine";
-import RemoteControl from "../svgs/RemoteControl";
-import ControlPanel from "../svgs/ControlPanel";
-import Printer from "../svgs/3dPrinter";
-import ConveyorBelt from "../svgs/ConveyorBelt";
-import Lathe from "../svgs/Lathe";
-import PackingMachine from "../svgs/PackingMachine";
-import Saw from "../svgs/Saw";
-import Switch from "../svgs/Switch";
+import PressureBlower from '../svgs/PressureBlowerFlooded.svg'
+import Fabric from '../svgs/fabric.svg'
 
-export const SvgReturner = (title) => {
+import { ReactSvgInjector, Mutate } from "react-svg-injector";
+export const SvgReturner = (title, onoff) => {
   switch (title) {
     case "PressureBlower":
-      return <PressureFunk width={80} height={80} />;
-    case "RemoteControl":
-      return (
-        <RemoteControl faa={() => {}} fuu={() => {}} width={80} height={80} />
-      );
-    case "ControlPanel":
-      return <ControlPanel width={80} height={80} />;
-    case "Printer":
-      return <Printer width={80} height={80} />;
-    case "Assembly":
-      return <Assembly width={80} height={80} />;
-    case "ConveyorBelt":
-      return <ConveyorBelt width={80} height={80} />;
-    case "Lathe":
-      return <Lathe width={80} height={80} />;
-    case "PackingMachine":
-      return <PackingMachine width={80} height={80} />;
-    case "Saw":
-      return <Saw width={80} height={80} />;
-    case "Switch":
-      return <Switch width={80} height={80} />;
+      return <ReactSvgInjector src={PressureBlower} className="App-logo">
+            <Mutate selector="feFlood" flood-color={onoff === true ?  'blue'  : onoff === false  ? 'red' : 'grey'} />
+          </ReactSvgInjector>
+    case "Fabric":
+      return <ReactSvgInjector src={Fabric} className="App-logo">
+            <Mutate selector="feFlood" flood-color="#BADA55" />
+          </ReactSvgInjector>
     default:
-      break;
+      return <ReactSvgInjector src={Fabric} className="App-logo">
+      <Mutate selector="feFlood" flood-color="grey" />
+    </ReactSvgInjector>
   }
 };
