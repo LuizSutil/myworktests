@@ -8,23 +8,26 @@
 }
 
 .modal{
-    width: 320px;
+    width: 300px;
     height: 450px;
     background-color: azure;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 5px;
-    border: 3px solid teal;
-    z-index: 999999999999999999999;
-    
+    border: 3px solid teal;    
+}
+
+.modal:hover{
+    cursor: default;
 }
 
 .modalMenu{
     width: 90%;
     background-color: teal;
-    height: 10%;
+    height: 8%;
     margin-top: 10px;
+    margin-bottom: 10px;
     box-shadow: 5px 10px #888888;
     border-radius: 5px;
     display: flex;
@@ -35,12 +38,44 @@
     cursor: pointer;
 }
 
+.menuItem{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid gainsboro;
+}
+
+.menuItem:first-child{
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.menuItem:last-child{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.menuItem:hover{
+    background-color: aqua;
+}
+
+.menuImg{
+    height: 25px;
+    width: 25px;
+    
+}
+
+
+.menuItem:hover{
+    color: aquamarine;
+}
 
 
 .svgRow{
     display: flex;
     flex-direction: row;
-    margin-top: 15px;
+    margin-top: 5px;
     justify-content:start;
 }
 
@@ -60,10 +95,8 @@
 .svgButton{
     width: 70px;
     height: 70px;
-    background-color: tomato;
     border-radius: 60px;
     box-shadow: 3px 5px #888888;
-    margin-top: 45px;
 }
 
 .svgButton:hover{
@@ -99,12 +132,12 @@
 }
 
 .outputBig{
-    border: 2px solid teal;
+    border: 3px solid teal;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 300px;
+    width: 80%;
     height: 40px;
     margin-top: 30px;
 
