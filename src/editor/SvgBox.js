@@ -65,7 +65,7 @@ export const SvgBox = ({
       }}
     > 
 
-    {popup && editMode ? 
+    {popup && !editMode ? 
       <Rnd
         default={{
           x: 0,
