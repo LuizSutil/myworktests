@@ -42,7 +42,7 @@ export const SvgCanvas = ({ items, setItemsFun, itemList, addSgv, edit }) => {
           addSgv(top, left, icon);
         } else {
           //this is for further implementation
-          console.log("wtf you doin");
+          console.log("further implementation");
         }
       },
       collect: (monitor) => ({

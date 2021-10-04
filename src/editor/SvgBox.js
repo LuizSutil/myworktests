@@ -65,7 +65,7 @@ export const SvgBox = ({
       }}
     > 
 
-    {popup ? 
+    {popup && editMode ? 
       <Rnd
         default={{
           x: 0,
@@ -127,18 +127,21 @@ export const SvgBox = ({
       </Rnd> :  null
       }
       {/* {children} */}
-      {itemMenu && edit ? (
-        <div onClick={() => toggleMenu(id)} className="icon">
-          ✎
-        </div>
-      ) : null}
+      
 
      <div onClick={edit ? {} : ()=>setPopup(true)}>
      {SvgReturner(title, state)}
      </div>
-      {itemMenu && edit ? (
+
+     {itemMenu && edit ? (
+
+        <div className='svgEditMenu'>
+        <div onClick={() => toggleMenu(id)} className="icon">
+          ✎
+         </div>
         <div onClick={() => deleteItem(id)} className="icon">
           x
+         </div>
         </div>
       ) : null}
     </div>

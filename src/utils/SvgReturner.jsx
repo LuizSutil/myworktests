@@ -10,7 +10,7 @@ export const SvgReturner = (title, onoff) => {
           </ReactSvgInjector>
     case "Fabric":
       return <ReactSvgInjector src={Fabric} className="App-logo">
-            <Mutate selector="feFlood" flood-color="#BADA55" />
+            <Mutate selector="feFlood" flood-color={onoff === true ?  'rgb(116, 89, 158)'  : onoff === false  ? 'rgb(42, 117, 110)' : 'grey'} />
           </ReactSvgInjector>
     default:
       return <ReactSvgInjector src={Fabric} className="App-logo">

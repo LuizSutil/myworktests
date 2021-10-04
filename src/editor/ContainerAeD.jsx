@@ -34,6 +34,7 @@ export const ContainerAed = () => {
   const [itemList, setItemList] = useState({
     0: {
       title: "Fabric",
+      state: false,
       controllingKey: "None",
       selected: false,
       exists: true,
